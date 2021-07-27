@@ -7,7 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 logger = logging.getLogger(__name__)
 
 
-def highlight(element):
+def highlight(element, seconds: float = 0.2):
     """Highlights (blinks) a Selenium Webdriver element"""
     driver = element._parent
 
@@ -18,7 +18,7 @@ def highlight(element):
 
     original_style = element.get_attribute("style")
     apply_style("background: yellow; border: 2px solid red;")
-    time.sleep(0.2 + (random.random() / 5))
+    time.sleep(seconds)
     apply_style(original_style)
 
 
