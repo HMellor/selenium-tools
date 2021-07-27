@@ -13,10 +13,10 @@ implemented_browsers = {"chrome", "firefox"}
 
 
 class Browser:
-    def __init__(self, browser="chrome", headless=False):
+    def __init__(self, browser="chrome", headless=False, extensions: List[str] = None, user_data_dir: str = None):
         assert browser in implemented_browsers
         if browser == "chrome":
-            self.open_chrome(headless)
+            self.open_chrome(headless, extensions, user_data_dir=user_data_dir)
         elif browser == "firefox":
             logger.error("Firefox implementation not yet complete")
             # self.open_firefox()
@@ -34,7 +34,7 @@ class Browser:
         options = Options()
         if extensions is not None:
             for extension in extensions:
-                options.add_extension(extension)
+                options.add_argument(f"--load-extension={extension}")
         options.add_argument("--disable-blink-features=AutomationControlled")
         options.add_argument("window-size=1920,1080")
         options.add_argument(
@@ -55,7 +55,7 @@ class Browser:
         )  # https://stackoverflow.com/a/49123152/1689770
         if user_data_dir:
             user_data_dir = Path(user_data_dir).absolute()
-            options.add_argument(f"user-data-dir={user_data_dir}")
+            options.add_argument(f"--user-data-dir={user_data_dir}")
             logger.info(f"Storing user data in: {user_data_dir}")
         if headless:
             options.add_argument(
