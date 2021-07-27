@@ -3,7 +3,7 @@ import setuptools
 if __name__ == "__main__":
     setuptools.setup(
         name="selenium-tools",
-        version="1.0.0",
+        version="1.0.1",
         author="HMellor",
         description="Tools to speed using Selenium",
         url="https://github.com/HMellor/selenium-tools",
